@@ -1,0 +1,15 @@
+<button
+  type="button"
+  class="btn btn--sm btn--outline favorite-btn"
+  data-favorite-btn
+  data-name="<%= country.name %>"
+  data-slug="<%= country.slug %>"
+  data-flag="<%= country.flag %>"
+  data-region="<%= country.region %>"
+  data-capital="<%= country.capital %>"
+  aria-pressed="false"
+  aria-label="Toggle favorite for <%= country.name %>"
+>
+  <span class="favorite-btn__icon" aria-hidden="true">&#9734;</span>
+  <span class="favorite-btn__text">Add to Favorites</span>
+</button>

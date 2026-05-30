@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container error-page">
+      <section class="error-card">
+        <p class="error-card__code"><%= statusCode %></p>
+        <h1 class="error-card__title">Oops! Something went wrong</h1>
+        <p class="error-card__message"><%= message %></p>
+        <a href="/" class="btn">Back to Home</a>
+        <% if (stack) { %>
+          <pre class="error-card__stack"><%= stack %></pre>
+        <% } %>
+      </section>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>

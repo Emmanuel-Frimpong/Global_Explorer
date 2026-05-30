@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <section class="hero">
+        <span class="hero__badge">Discover the World</span>
+        <h1 class="hero__title">Explore Countries Worldwide</h1>
+        <p class="hero__subtitle">
+          Search any country to view detailed information, universities, public holidays, and currency conversion — all in one dashboard.
+        </p>
+      </section>
+
+      <%- include('partials/searchbar') %>
+
+      <% if (alert) { %>
+        <div class="alert alert--<%= alert.type %>" role="alert">
+          <%= alert.message %>
+        </div>
+      <% } %>
+
+      <section>
+        <h2 class="section-title">Features</h2>
+        <p class="section-subtitle">Everything you need to explore the globe.</p>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--blue">&#127758;</div>
+            <h3 class="feature-card__title">Country Information</h3>
+            <p class="feature-card__text">Flags, capitals, population, languages, currencies, and regional data.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--purple">&#127979;</div>
+            <h3 class="feature-card__title">Universities</h3>
+            <p class="feature-card__text">Browse universities by country with direct links to their websites.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--orange">&#127881;</div>
+            <h3 class="feature-card__title">Public Holidays</h3>
+            <p class="feature-card__text">View upcoming public holidays and local celebration names.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--green">&#128176;</div>
+            <h3 class="feature-card__title">Currency Converter</h3>
+            <p class="feature-card__text">Convert between currencies with live exchange rates.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--blue">&#128269;</div>
+            <h3 class="feature-card__title">Smart Search</h3>
+            <p class="feature-card__text">Find countries by full or partial name with instant results.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__icon feature-card__icon--purple">&#11088;</div>
+            <h3 class="feature-card__title">Favorites &amp; History</h3>
+            <p class="feature-card__text">Save countries and track your recent searches locally.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta">
+        <h2 class="cta__title">Ready to explore?</h2>
+        <p class="cta__text">Start by searching for any country above, or browse a sample country profile.</p>
+        <a href="/country/japan" class="btn btn--white">View Sample: Japan</a>
+      </section>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>

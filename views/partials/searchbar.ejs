@@ -1,0 +1,16 @@
+<section class="search-section">
+  <form class="search-form" action="/search" method="POST" id="searchForm">
+    <input
+      type="text"
+      name="query"
+      class="search-form__input"
+      placeholder="Search for a country..."
+      aria-label="Search for a country"
+      value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+      required
+      autocomplete="off"
+      minlength="2"
+    >
+    <button type="submit" class="search-form__btn">Search</button>
+  </form>
+</section>

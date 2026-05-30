@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1 class="section-title">Search History</h1>
+          <p class="section-subtitle">Your 10 most recent country searches.</p>
+        </div>
+        <button type="button" class="btn btn--danger btn--sm" id="clearHistoryBtn" style="display: none;">
+          Clear History
+        </button>
+      </div>
+
+      <div id="historyContainer">
+        <div class="empty-state" id="historyEmpty">
+          <div class="empty-state__icon">&#128337;</div>
+          <h2 class="empty-state__title">No search history</h2>
+          <p class="empty-state__text">Your recent searches will appear here once you start exploring countries.</p>
+          <a href="/" class="btn">Search a Country</a>
+        </div>
+
+        <div class="history-list" id="historyList" style="display: none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+  <script src="/js/history.js"></script>
+</body>
+</html>

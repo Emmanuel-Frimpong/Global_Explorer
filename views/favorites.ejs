@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1 class="section-title">Favorites</h1>
+          <p class="section-subtitle">
+            Your saved countries for quick access.
+            <span class="favorites-count" id="favoritesCount">0 saved</span>
+          </p>
+        </div>
+        <button type="button" class="btn btn--danger btn--sm" id="clearFavoritesBtn" style="display: none;">
+          Clear All
+        </button>
+      </div>
+
+      <div id="favoritesContainer">
+        <div class="empty-state" id="favoritesEmpty">
+          <div class="empty-state__icon">&#11088;</div>
+          <h2 class="empty-state__title">No favorites yet</h2>
+          <p class="empty-state__text">Search for a country and tap the star to save it here for quick access.</p>
+          <a href="/" class="btn">Start Exploring</a>
+        </div>
+
+        <div class="favorite-grid" id="favoritesGrid" style="display: none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+  <script src="/js/favorites.js"></script>
+</body>
+</html>

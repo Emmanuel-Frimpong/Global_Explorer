@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <%- include('partials/country-nav') %>
+
+      <div class="page-header">
+        <div class="country-header country-header--compact">
+          <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag country-header__flag--sm">
+          <div class="country-header__info">
+            <h1>Universities in <%= country.name %></h1>
+            <p class="country-header__meta"><%= resultCount %> universit<%= resultCount === 1 ? 'y' : 'ies' %> found</p>
+            <div class="country-header__actions">
+              <%- include('partials/favorite-btn') %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="search-section search-section--inline">
+        <form class="search-form" method="GET" action="/country/<%= encodeURIComponent(country.slug) %>/universities" id="universitySearchForm">
+          <input
+            type="text"
+            name="q"
+            class="search-form__input"
+            placeholder="Search universities by name..."
+            aria-label="Search universities by name"
+            value="<%= searchQuery %>"
+            autocomplete="off"
+          >
+          <button type="submit" class="search-form__btn">Search</button>
+          <% if (searchQuery) { %>
+            <a href="/country/<%= encodeURIComponent(country.slug) %>/universities" class="btn btn--outline btn--sm">Clear</a>
+          <% } %>
+        </form>
+      </section>
+
+      <% if (universities.length === 0) { %>
+        <div class="empty-state">
+          <div class="empty-state__icon">&#127979;</div>
+          <h2 class="empty-state__title">No universities found</h2>
+          <p class="empty-state__text">
+            <% if (searchQuery) { %>
+              No universities matching "<%= searchQuery %>" in <%= country.name %>. Try a different search term.
+            <% } else { %>
+              No university data is available for <%= country.name %> at this time.
+            <% } %>
+          </p>
+          <% if (searchQuery) { %>
+            <a href="/country/<%= encodeURIComponent(country.slug) %>/universities" class="btn">View All Universities</a>
+          <% } else { %>
+            <a href="/country/<%= encodeURIComponent(country.slug) %>" class="btn btn--outline">Back to Overview</a>
+          <% } %>
+        </div>
+      <% } else { %>
+        <div class="university-grid" id="universityGrid">
+          <% universities.forEach(function(university) { %>
+            <article class="university-card" data-name="<%= university.name.toLowerCase() %>">
+              <div class="university-card__icon">&#127979;</div>
+              <div class="university-card__body">
+                <h2 class="university-card__name"><%= university.name %></h2>
+                <p class="university-card__country"><%= university.country %></p>
+                <% if (university.stateProvince) { %>
+                  <p class="university-card__state"><%= university.stateProvince %></p>
+                <% } %>
+                <% if (university.domain) { %>
+                  <p class="university-card__domain"><%= university.domain %></p>
+                <% } %>
+              </div>
+              <% if (university.website) { %>
+                <a
+                  href="<%= university.website %>"
+                  class="btn btn--sm university-card__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open Website
+                </a>
+              <% } else { %>
+                <span class="university-card__no-link">No website</span>
+              <% } %>
+            </article>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+  <script src="/js/universities.js"></script>
+</body>
+</html>

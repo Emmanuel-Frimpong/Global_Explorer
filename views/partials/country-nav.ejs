@@ -1,0 +1,6 @@
+<div class="country-nav">
+  <a href="/country/<%= encodeURIComponent(country.slug) %>" class="btn btn--sm <%= activeTab === 'overview' ? '' : 'btn--outline' %>">Overview</a>
+  <a href="/country/<%= encodeURIComponent(country.slug) %>/universities" class="btn btn--sm <%= activeTab === 'universities' ? '' : 'btn--outline' %>">Universities</a>
+  <a href="/country/<%= encodeURIComponent(country.slug) %>/holidays" class="btn btn--sm <%= activeTab === 'holidays' ? '' : 'btn--outline' %>">Holidays</a>
+  <a href="/country/<%= encodeURIComponent(country.slug) %>/currency" class="btn btn--sm <%= activeTab === 'currency' ? '' : 'btn--outline' %>">Currency</a>
+</div>

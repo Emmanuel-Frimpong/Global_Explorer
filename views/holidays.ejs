@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <%- include('partials/country-nav') %>
+
+      <div class="page-header">
+        <div class="country-header country-header--compact">
+          <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag country-header__flag--sm">
+          <div class="country-header__info">
+            <h1>Public Holidays in <%= country.name %></h1>
+            <p class="country-header__meta"><%= resultCount %> holida<%= resultCount === 1 ? 'y' : 'ies' %> in <%= selectedYear %></p>
+            <div class="country-header__actions">
+              <%- include('partials/favorite-btn') %>
+            </div>
+          </div>
+        </div>
+
+        <form class="year-filter" method="GET" action="/country/<%= encodeURIComponent(country.slug) %>/holidays">
+          <label for="yearSelect" class="year-filter__label">Year</label>
+          <select name="year" id="yearSelect" class="year-filter__select" onchange="this.form.submit()">
+            <% yearOptions.forEach(function(year) { %>
+              <option value="<%= year %>" <%= year === selectedYear ? 'selected' : '' %>><%= year %></option>
+            <% }); %>
+          </select>
+        </form>
+      </div>
+
+      <% if (upcoming.length > 0) { %>
+        <section class="holidays-section">
+          <h2 class="section-title">Upcoming Holidays</h2>
+          <p class="section-subtitle">Next public holidays in <%= country.name %>.</p>
+
+          <div class="holiday-grid holiday-grid--upcoming">
+            <% upcoming.forEach(function(holiday) { %>
+              <article class="holiday-card holiday-card--upcoming">
+                <div class="holiday-card__date-badge">
+                  <span class="holiday-card__month"><%= new Date(holiday.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' }) %></span>
+                  <span class="holiday-card__day"><%= new Date(holiday.date + 'T00:00:00').getDate() %></span>
+                </div>
+                <div class="holiday-card__body">
+                  <h3 class="holiday-card__name"><%= holiday.name %></h3>
+                  <p class="holiday-card__local"><%= holiday.localName %></p>
+                  <p class="holiday-card__date"><%= holiday.formattedDate %></p>
+                </div>
+              </article>
+            <% }); %>
+          </div>
+        </section>
+      <% } %>
+
+      <section class="holidays-section">
+        <h2 class="section-title">All Holidays — <%= selectedYear %></h2>
+        <p class="section-subtitle">Complete list of public holidays for <%= country.name %>.</p>
+
+        <% if (holidays.length === 0) { %>
+          <div class="empty-state">
+            <div class="empty-state__icon">&#127881;</div>
+            <h2 class="empty-state__title">No holidays found</h2>
+            <p class="empty-state__text">No public holiday data is available for <%= country.name %> in <%= selectedYear %>.</p>
+            <% if (selectedYear !== currentYear) { %>
+              <a href="/country/<%= encodeURIComponent(country.slug) %>/holidays?year=<%= currentYear %>" class="btn">View <%= currentYear %> Holidays</a>
+            <% } else { %>
+              <a href="/country/<%= encodeURIComponent(country.slug) %>" class="btn btn--outline">Back to Overview</a>
+            <% } %>
+          </div>
+        <% } else { %>
+          <div class="holiday-list">
+            <% holidays.forEach(function(holiday) { %>
+              <article class="holiday-item">
+                <div class="holiday-item__date">
+                  <span class="holiday-item__month"><%= new Date(holiday.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' }) %></span>
+                  <span class="holiday-item__day"><%= new Date(holiday.date + 'T00:00:00').getDate() %></span>
+                </div>
+                <div class="holiday-item__body">
+                  <h3 class="holiday-item__name"><%= holiday.name %></h3>
+                  <p class="holiday-item__local"><%= holiday.localName %></p>
+                  <p class="holiday-item__meta"><%= holiday.formattedDate %> &middot; <%= holiday.types %></p>
+                </div>
+              </article>
+            <% }); %>
+          </div>
+        <% } %>
+      </section>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>

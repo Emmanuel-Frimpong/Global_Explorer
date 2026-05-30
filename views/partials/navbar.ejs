@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="/" class="navbar__brand">
+      <span class="navbar__brand-icon">GE</span>
+      Global Explorer
+    </a>
+
+    <button class="navbar__toggle" type="button" aria-label="Toggle navigation" id="navToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="navbar__links" id="navLinks">
+      <li><a href="/" class="navbar__link <%= activePage === 'home' ? 'navbar__link--active' : '' %>">Home</a></li>
+      <li>
+        <a href="/favorites" class="navbar__link <%= activePage === 'favorites' ? 'navbar__link--active' : '' %>">
+          Favorites
+          <span class="navbar__badge" id="favoritesBadge" hidden>0</span>
+        </a>
+      </li>
+      <li><a href="/history" class="navbar__link <%= activePage === 'history' ? 'navbar__link--active' : '' %>">History</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+  <div class="spinner" role="status" aria-label="Loading"></div>
+</div>

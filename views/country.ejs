@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <%- include('partials/country-nav') %>
+
+      <section class="country-header">
+        <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag">
+        <div class="country-header__info">
+          <h1><%= country.name %></h1>
+          <p class="country-header__meta"><%= country.officialName %></p>
+          <p class="country-header__meta"><%= country.region %> &middot; <%= country.subregion %></p>
+          <div class="country-header__actions">
+            <%- include('partials/favorite-btn') %>
+            <a href="/" class="btn btn--sm btn--outline">Back to Search</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Capital</p>
+          <p class="stat-card__value"><%= country.capital %></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Population</p>
+          <p class="stat-card__value"><%= country.population %></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Region</p>
+          <p class="stat-card__value"><%= country.region %></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Subregion</p>
+          <p class="stat-card__value"><%= country.subregion %></p>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <h2 class="info-section__title">Additional Information</h2>
+        <div class="info-list">
+          <div class="info-list__item">
+            <span class="info-list__label">Languages</span>
+            <span><%= country.languages %></span>
+          </div>
+          <div class="info-list__item">
+            <span class="info-list__label">Currency</span>
+            <span><%= country.currency %></span>
+          </div>
+          <div class="info-list__item">
+            <span class="info-list__label">Timezone</span>
+            <span><%= country.timezone %></span>
+          </div>
+          <div class="info-list__item">
+            <span class="info-list__label">Country Code</span>
+            <span><%= country.cca2 %> / <%= country.cca3 %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

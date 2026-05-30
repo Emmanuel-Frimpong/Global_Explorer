@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1 class="section-title">Search Results</h1>
+          <p class="section-subtitle">
+            Found <%= resultCount %> countries matching "<%= query %>"
+          </p>
+        </div>
+        <a href="/" class="btn btn--outline btn--sm">New Search</a>
+      </div>
+
+      <div class="country-cards-grid">
+        <% countries.forEach(function(country) { %>
+          <article class="country-card country-card--interactive">
+            <a href="/country/<%= encodeURIComponent(country.slug) %>" class="country-card__link">
+              <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-card__flag" loading="lazy">
+              <div class="country-card__body">
+                <h2 class="country-card__name"><%= country.name %></h2>
+                <p class="country-card__meta"><%= country.region %> &middot; <%= country.capital %></p>
+                <p class="country-card__population">Population: <%= country.population %></p>
+              </div>
+              <span class="country-card__arrow">&rarr;</span>
+            </a>
+            <button
+              type="button"
+              class="country-card__favorite favorite-btn"
+              data-favorite-btn
+              data-name="<%= country.name %>"
+              data-slug="<%= country.slug %>"
+              data-flag="<%= country.flag %>"
+              data-region="<%= country.region %>"
+              data-capital="<%= country.capital %>"
+              aria-pressed="false"
+              aria-label="Toggle favorite for <%= country.name %>"
+            >
+              <span class="favorite-btn__icon" aria-hidden="true">&#9734;</span>
+            </button>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>
