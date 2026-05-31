@@ -18,10 +18,10 @@ function formatMoney(value, currencyCode) {
 
 function handleAxiosError(error) {
   if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-    return new AppError('Unable to reach the exchange rate API. Please check your connection.', 503);
+    return new AppError('Unable to reach the exchange rate API. Please check your connection.', 503, 'network');
   }
 
-  return new AppError('Failed to fetch exchange rate data. Please try again later.', 502);
+  return new AppError('Failed to fetch exchange rate data. Please try again later.', 502, 'api');
 }
 
 async function getRates(baseCode) {
@@ -36,7 +36,7 @@ async function getRates(baseCode) {
     const { data } = await axios.get(`${BASE_URL}/${base}`, { timeout: TIMEOUT });
 
     if (data.result !== 'success') {
-      throw new AppError('Exchange rate API returned an unsuccessful response.', 502);
+      throw new AppError('Exchange rate API returned an unsuccessful response.', 502, 'api');
     }
 
     const payload = {
@@ -52,7 +52,7 @@ async function getRates(baseCode) {
   } catch (error) {
     if (error instanceof AppError) throw error;
     if (error.response?.status === 404) {
-      throw new AppError(`Unsupported base currency "${base}".`, 400);
+      throw new AppError(`Unsupported base currency "${base}".`, 400, 'validation');
     }
     throw handleAxiosError(error);
   }
@@ -68,7 +68,7 @@ async function convert(amount, baseCode, targetCode) {
   const target = targetCode.toUpperCase().trim();
 
   if (!base || !target) {
-    throw new AppError('Both base and target currencies are required.', 400);
+    throw new AppError('Both base and target currencies are required.', 400, 'validation');
   }
 
   if (base === target) {
@@ -89,7 +89,7 @@ async function convert(amount, baseCode, targetCode) {
   const rate = ratesData.rates[target];
 
   if (!rate) {
-    throw new AppError(`Unsupported target currency "${target}".`, 400);
+    throw new AppError(`Unsupported target currency "${target}".`, 400, 'validation');
   }
 
   const converted = amount * rate;
@@ -111,11 +111,11 @@ function validateAmount(value) {
   const amount = parseFloat(value);
 
   if (Number.isNaN(amount) || amount <= 0) {
-    throw new AppError('Please enter a valid amount greater than zero.', 400);
+    throw new AppError('Please enter a valid amount greater than zero.', 400, 'validation');
   }
 
   if (amount > 1_000_000_000) {
-    throw new AppError('Amount exceeds the maximum allowed value.', 400);
+    throw new AppError('Amount exceeds the maximum allowed value.', 400, 'validation');
   }
 
   return amount;

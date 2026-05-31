@@ -17,9 +17,25 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --transition: 0.2s ease;
+  --transition: 0.3s ease;
   --font-family: 'Poppins', sans-serif;
   --container-width: 1140px;
+}
+
+[data-theme='dark'] {
+  --color-primary: #3b82f6;
+  --color-secondary: #60a5fa;
+  --color-accent: #93c5fd;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --color-bg: #0f172a;
+  --color-card: #1e293b;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 }
 
 *,
@@ -42,6 +58,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color var(--transition), color var(--transition);
 }
 
 img {
@@ -90,6 +107,7 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background var(--transition), box-shadow var(--transition);
 }
 
 .navbar__inner {
@@ -182,6 +200,33 @@ a:hover {
   transition: var(--transition);
 }
 
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: 1.25rem;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.theme-toggle:hover {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
 /* Hero */
 .hero {
   text-align: center;
@@ -189,6 +234,11 @@ a:hover {
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.06), rgba(96, 165, 250, 0.08));
   border-radius: var(--radius-lg);
   margin-bottom: 3rem;
+  transition: background var(--transition);
+}
+
+[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.08));
 }
 
 .hero__badge {
@@ -235,7 +285,7 @@ a:hover {
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition), border-color var(--transition);
+  transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .search-form:focus-within {
@@ -294,7 +344,7 @@ a:hover {
   padding: 1.75rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
 }
 
 .feature-card:hover {
@@ -337,6 +387,7 @@ a:hover {
   text-align: center;
   color: #fff;
   margin-bottom: 2rem;
+  transition: background var(--transition);
 }
 
 .cta__title {
@@ -421,6 +472,7 @@ a:hover {
   border-top: 1px solid var(--color-border);
   padding: 2rem 0;
   margin-top: auto;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .footer__inner {
@@ -468,6 +520,7 @@ a:hover {
   box-shadow: var(--shadow-md);
   margin-bottom: 2rem;
   border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .country-header__flag {
@@ -507,7 +560,7 @@ a:hover {
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition);
+  transition: box-shadow var(--transition), background var(--transition), border-color var(--transition);
 }
 
 .stat-card:hover {
@@ -535,6 +588,7 @@ a:hover {
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
   margin-bottom: 1.5rem;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .info-section__title {
@@ -577,6 +631,7 @@ a:hover {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   border: 1px dashed var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .empty-state__icon {
@@ -621,7 +676,7 @@ a:hover {
   background: var(--color-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition), border-color var(--transition);
+  transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .history-item:hover {
@@ -664,6 +719,13 @@ a:hover {
   max-width: 480px;
   width: 100%;
   border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.error-card__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1;
 }
 
 .error-card__code {
@@ -682,15 +744,47 @@ a:hover {
 
 .error-card__message {
   color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.error-card__suggestion {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.error-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.error-card__stack {
+.error-card__details {
   margin-top: 2rem;
+  text-align: left;
+}
+
+.error-card__details summary {
+  cursor: pointer;
+  color: var(--color-primary);
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.error-card__details summary:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.error-card__stack {
+  margin-top: 1rem;
   padding: 1rem;
   background: var(--color-bg);
   border-radius: var(--radius-sm);
-  text-align: left;
   overflow-x: auto;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
@@ -705,6 +799,11 @@ a:hover {
   z-index: 200;
   align-items: center;
   justify-content: center;
+  transition: background var(--transition);
+}
+
+[data-theme='dark'] .loading-overlay {
+  background: rgba(15, 23, 42, 0.85);
 }
 
 .loading-overlay.is-visible {
@@ -776,7 +875,7 @@ a:hover {
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
   color: var(--color-text);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .country-card--interactive {
@@ -922,7 +1021,7 @@ a:hover {
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
 }
 
 .favorite-card:hover {
@@ -998,7 +1097,7 @@ a:hover {
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .university-card:hover {
@@ -1106,7 +1205,7 @@ a:hover {
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
 }
 
 .holiday-card--upcoming {
@@ -1191,7 +1290,7 @@ a:hover {
   border-radius: var(--radius-md);
   padding: 1.25rem;
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition), border-color var(--transition);
+  transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .holiday-item:hover {
@@ -1218,6 +1317,7 @@ a:hover {
   padding: 2rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .converter-card__title {
@@ -1334,6 +1434,7 @@ a:hover {
   border: 1px solid var(--color-border);
   position: sticky;
   top: 5rem;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .conversion-history__header {

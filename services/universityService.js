@@ -24,15 +24,15 @@ function formatUniversity(data) {
 
 function handleAxiosError(error) {
   if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-    return new AppError('Unable to reach the universities API. Please check your connection.', 503);
+    return new AppError('Unable to reach the universities API. Please check your connection.', 503, 'network');
   }
 
-  return new AppError('Failed to fetch university data. Please try again later.', 502);
+  return new AppError('Failed to fetch university data. Please try again later.', 502, 'api');
 }
 
 async function getUniversitiesByCountry(countryName, searchQuery = '') {
   if (!countryName?.trim()) {
-    throw new AppError('Country name is required.', 400);
+    throw new AppError('Country name is required.', 400, 'validation');
   }
 
   const params = { country: countryName.trim() };

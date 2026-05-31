@@ -9,12 +9,35 @@
   <main class="page-content">
     <div class="container error-page">
       <section class="error-card">
+        <% const errorIcons = {
+          validation: '⚠️',
+          network: '🌐',
+          not_found: '🔍',
+          api: '🔧',
+          server: '⚙️'
+        }; %>
+
+        <div class="error-card__icon">
+          <%= errorIcons[errorType] || errorIcons.server %>
+        </div>
+
         <p class="error-card__code"><%= statusCode %></p>
-        <h1 class="error-card__title">Oops! Something went wrong</h1>
+        <h1 class="error-card__title"><%= errorTitle || 'Oops! Something went wrong' %></h1>
         <p class="error-card__message"><%= message %></p>
-        <a href="/" class="btn">Back to Home</a>
+        <p class="error-card__suggestion"><%= suggestion %></p>
+
+        <div class="error-card__actions">
+          <a href="/" class="btn">Back to Home</a>
+          <% if (errorType === 'validation') { %>
+            <button onclick="history.back()" class="btn btn--outline">Go Back</button>
+          <% } %>
+        </div>
+
         <% if (stack) { %>
-          <pre class="error-card__stack"><%= stack %></pre>
+          <details class="error-card__details">
+            <summary>Technical Details</summary>
+            <pre class="error-card__stack"><%= stack %></pre>
+          </details>
         <% } %>
       </section>
     </div>

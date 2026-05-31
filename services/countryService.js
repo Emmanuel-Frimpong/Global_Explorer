@@ -43,25 +43,25 @@ function formatCountry(data) {
 
 function handleAxiosError(error) {
   if (error.response?.status === 404) {
-    return new AppError('Country not found', 404);
+    return new AppError('Country not found', 404, 'not_found');
   }
 
   if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-    return new AppError('Unable to reach the countries API. Please check your connection.', 503);
+    return new AppError('Unable to reach the countries API. Please check your connection.', 503, 'network');
   }
 
-  return new AppError('Failed to fetch country data. Please try again later.', 502);
+  return new AppError('Failed to fetch country data. Please try again later.', 502, 'api');
 }
 
 async function searchCountries(query) {
   const trimmed = query.trim();
 
   if (!trimmed) {
-    throw new AppError('Please enter a country name to search.', 400);
+    throw new AppError('Please enter a country name to search.', 400, 'validation');
   }
 
   if (trimmed.length < 2) {
-    throw new AppError('Search query must be at least 2 characters.', 400);
+    throw new AppError('Search query must be at least 2 characters.', 400, 'validation');
   }
 
   try {
@@ -83,7 +83,7 @@ async function getCountryByName(name) {
   const decoded = decodeURIComponent(name).trim();
 
   if (!decoded) {
-    throw new AppError('Country name is required.', 400);
+    throw new AppError('Country name is required.', 400, 'validation');
   }
 
   try {
@@ -108,7 +108,7 @@ async function getCountryByName(name) {
     });
 
     if (!data || data.length === 0) {
-      throw new AppError(`No country found for "${decoded}".`, 404);
+      throw new AppError(`No country found for "${decoded}".`, 404, 'not_found');
     }
 
     const normalized = decoded.toLowerCase();
@@ -118,7 +118,7 @@ async function getCountryByName(name) {
   } catch (error) {
     if (error instanceof AppError) throw error;
     if (error.response?.status === 404) {
-      throw new AppError(`No country found for "${decoded}".`, 404);
+      throw new AppError(`No country found for "${decoded}".`, 404, 'not_found');
     }
     throw handleAxiosError(error);
   }

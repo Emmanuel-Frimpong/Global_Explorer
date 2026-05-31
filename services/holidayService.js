@@ -29,20 +29,21 @@ function handleAxiosError(error, countryCode) {
   if (error.response?.status === 404) {
     return new AppError(
       `Holiday data is not available for country code "${countryCode}".`,
-      404
+      404,
+      'not_found'
     );
   }
 
   if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-    return new AppError('Unable to reach the holidays API. Please check your connection.', 503);
+    return new AppError('Unable to reach the holidays API. Please check your connection.', 503, 'network');
   }
 
-  return new AppError('Failed to fetch holiday data. Please try again later.', 502);
+  return new AppError('Failed to fetch holiday data. Please try again later.', 502, 'api');
 }
 
 async function getHolidaysByYear(countryCode, year) {
   if (!countryCode?.trim()) {
-    throw new AppError('Country code is required.', 400);
+    throw new AppError('Country code is required.', 400, 'validation');
   }
 
   try {
@@ -61,7 +62,7 @@ async function getHolidaysByYear(countryCode, year) {
 
 async function getUpcomingHolidays(countryCode) {
   if (!countryCode?.trim()) {
-    throw new AppError('Country code is required.', 400);
+    throw new AppError('Country code is required.', 400, 'validation');
   }
 
   try {

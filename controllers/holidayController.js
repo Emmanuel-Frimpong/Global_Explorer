@@ -10,7 +10,7 @@ async function getHolidays(req, res, next) {
     const selectedYear = Number.isNaN(parsedYear) ? currentYear : parsedYear;
 
     if (selectedYear < 1900 || selectedYear > 2100) {
-      throw new AppError('Please select a valid year between 1900 and 2100.', 400);
+      throw new AppError('Please select a valid year between 1900 and 2100.', 400, 'validation');
     }
 
     const holidays = await holidayService.getHolidaysByYear(country.cca2, selectedYear);
