@@ -1,13 +1,66 @@
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>
-      <p class="footer__brand">Global Explorer Dashboard</p>
-      <p class="footer__text">Explore countries, universities, holidays &amp; more.</p>
+<footer class="footer-modern">
+  <div class="container">
+    <div class="footer-modern__grid">
+      
+      <!-- Brand & About -->
+      <div class="footer-modern__brand">
+        <a href="/" class="footer-modern__logo">
+          <span class="navbar__brand-icon" style="display: inline-flex; width: 2.25rem; height: 2.25rem; font-size: 0.9375rem;">GE</span>
+          Global Explorer
+        </a>
+        <p class="footer-modern__desc">
+          A premium commercial-grade exploration platform mapping global analytics, university networks, public celebration patterns, and live currency rates.
+        </p>
+      </div>
+
+      <!-- Quick Exploration Navigation -->
+      <div class="footer-modern__col">
+        <h3>Exploration</h3>
+        <ul class="footer-modern__links">
+          <li><a href="/" class="footer-modern__link">Home Base</a></li>
+          <li><a href="/favorites" class="footer-modern__link">Favorites List</a></li>
+          <li><a href="/history" class="footer-modern__link">Recent History</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Country Samples Links -->
+      <div class="footer-modern__col">
+        <h3>Featured Profiles</h3>
+        <ul class="footer-modern__links">
+          <li><a href="/country/japan" class="footer-modern__link">Japan</a></li>
+          <li><a href="/country/ghana" class="footer-modern__link">Ghana</a></li>
+          <li><a href="/country/canada" class="footer-modern__link">Canada</a></li>
+        </ul>
+      </div>
+
+      <!-- API Credits & Tech badge grids -->
+      <div class="footer-modern__col">
+        <h3>Powered By</h3>
+        <div class="footer-modern__badge-grid">
+          <span class="footer-modern__badge">REST Countries v3</span>
+          <span class="footer-modern__badge">Nager.Date v3</span>
+          <span class="footer-modern__badge">Hipolabs Universities</span>
+          <span class="footer-modern__badge">Exchange Rates API</span>
+        </div>
+      </div>
     </div>
-    <ul class="footer__links">
-      <li><a href="/" class="footer__link">Home</a></li>
-      <li><a href="/favorites" class="footer__link">Favorites</a></li>
-      <li><a href="/history" class="footer__link">History</a></li>
-    </ul>
+
+    <!-- Footer base credits bar -->
+    <div class="footer-modern__bottom">
+      <p class="footer-modern__copy">
+        &copy; <%= new Date().getFullYear() %> Global Explorer Platform. Built with professional Node.js, Express, and HSL glassmorphism styles.
+      </p>
+      <div class="footer-modern__socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-modern__social" aria-label="GitHub Repository">
+          🐙
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-modern__social" aria-label="LinkedIn Profile">
+          💼
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-modern__social" aria-label="Twitter Account">
+          🐦
+        </a>
+      </div>
+    </div>
   </div>
 </footer>

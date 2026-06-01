@@ -8,66 +8,141 @@
 
   <main class="page-content">
     <div class="container">
-      <section class="hero">
-        <span class="hero__badge">Discover the World</span>
-        <h1 class="hero__title">Explore Countries Worldwide</h1>
-        <p class="hero__subtitle">
-          Search any country to view detailed information, universities, public holidays, and currency conversion — all in one dashboard.
-        </p>
-      </section>
-
-      <%- include('partials/searchbar') %>
+      
+      <!-- Premium Video Hero (Phase 1) -->
+      <div class="hero-video-container animate-fade-in stagger-1">
+        <video class="hero-video-bg" autoplay loop muted playsinline>
+          <source src="/videos/travel-bg.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
+        <div class="hero-video-content">
+          <span class="hero__badge">Discover the World</span>
+          <h1 class="hero__title">Explore The World Without Leaving Your Screen</h1>
+          <p class="hero__subtitle">
+            Discover countries, cultures, universities, holidays, and currencies from anywhere in the world.
+          </p>
+          
+          <div class="search-section--hero">
+            <form class="search-form" action="/search" method="POST" id="searchForm">
+              <input
+                type="text"
+                name="query"
+                class="search-form__input"
+                placeholder="Search for a country (e.g. Japan, Ghana, Canada)..."
+                aria-label="Search for a country"
+                value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+                required
+                autocomplete="off"
+                minlength="2"
+              >
+              <button type="submit" class="search-form__btn">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <% if (alert) { %>
-        <div class="alert alert--<%= alert.type %>" role="alert">
+        <div class="alert alert--<%= alert.type %> animate-fade-in" role="alert" style="margin-bottom: 2rem;">
           <%= alert.message %>
         </div>
       <% } %>
 
-      <section>
+      <!-- Recently Viewed Countries Container (Phase 6) -->
+      <section id="recentlyViewedContainer" class="recently-viewed-section animate-fade-in stagger-2" style="display: none;">
+        <h2 class="section-title">Recently Viewed</h2>
+        <p class="section-subtitle" style="margin-bottom: 1.5rem;">Pick up where you left off in your explorations.</p>
+        <div class="recently-viewed-grid" id="recentlyViewedGrid"></div>
+      </section>
+
+      <!-- Popular Destinations Grid (Phase 7) -->
+      <section class="popular-dest-section animate-fade-in stagger-3">
+        <h2 class="section-title">Popular Destinations</h2>
+        <p class="section-subtitle">Curated profiles of iconic destinations worldwide.</p>
+        <div class="popular-dest-grid">
+          <% destinations.forEach(function(dest) { %>
+            <article class="popular-dest-card" onclick="window.location.href='/country/<%= encodeURIComponent(dest.slug) %>'">
+              <img class="popular-dest-card__img" src="<%= dest.image %>" alt="Travel scenery in <%= dest.name %>" loading="lazy">
+              <div class="popular-dest-card__overlay"></div>
+              <div class="popular-dest-card__content">
+                <span class="popular-dest-card__tag"><%= dest.tagline %></span>
+                <h3 class="popular-dest-card__title"><%= dest.name %></h3>
+                <p class="popular-dest-card__desc"><%= dest.desc %></p>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      </section>
+
+      <!-- Features Checklist (Phase 4 - Visual Pexels Upgrade) -->
+      <section class="animate-fade-in stagger-4" style="margin-top: 4rem; margin-bottom: 4rem;">
         <h2 class="section-title">Features</h2>
         <p class="section-subtitle">Everything you need to explore the globe.</p>
 
         <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--blue">&#127758;</div>
-            <h3 class="feature-card__title">Country Information</h3>
-            <p class="feature-card__text">Flags, capitals, population, languages, currencies, and regional data.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.country %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--blue">&#127758;</div>
+              <h3 class="feature-card__title">Country Information</h3>
+              <p class="feature-card__text">Flags, capitals, population, languages, currencies, and regional data.</p>
+            </div>
           </article>
 
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--purple">&#127979;</div>
-            <h3 class="feature-card__title">Universities</h3>
-            <p class="feature-card__text">Browse universities by country with direct links to their websites.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.university %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--purple">&#127979;</div>
+              <h3 class="feature-card__title">Universities</h3>
+              <p class="feature-card__text">Browse universities by country with direct links to their websites.</p>
+            </div>
           </article>
 
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--orange">&#127881;</div>
-            <h3 class="feature-card__title">Public Holidays</h3>
-            <p class="feature-card__text">View upcoming public holidays and local celebration names.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.holiday %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--orange">&#127881;</div>
+              <h3 class="feature-card__title">Public Holidays</h3>
+              <p class="feature-card__text">View upcoming public holidays and local celebration names.</p>
+            </div>
           </article>
 
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--green">&#128176;</div>
-            <h3 class="feature-card__title">Currency Converter</h3>
-            <p class="feature-card__text">Convert between currencies with live exchange rates.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.currency %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--green">&#128176;</div>
+              <h3 class="feature-card__title">Currency Converter</h3>
+              <p class="feature-card__text">Convert between currencies with live exchange rates.</p>
+            </div>
           </article>
 
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--blue">&#128269;</div>
-            <h3 class="feature-card__title">Smart Search</h3>
-            <p class="feature-card__text">Find countries by full or partial name with instant results.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.search %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--blue">&#128269;</div>
+              <h3 class="feature-card__title">Smart Search</h3>
+              <p class="feature-card__text">Find countries by full or partial name with instant results.</p>
+            </div>
           </article>
 
-          <article class="feature-card">
-            <div class="feature-card__icon feature-card__icon--purple">&#11088;</div>
-            <h3 class="feature-card__title">Favorites &amp; History</h3>
-            <p class="feature-card__text">Save countries and track your recent searches locally.</p>
+          <article class="feature-card" style="--bg-img: url('<%= featureImages.favorites %>');">
+            <div class="feature-card__bg"></div>
+            <div class="feature-card__overlay"></div>
+            <div class="feature-card__content">
+              <div class="feature-card__icon feature-card__icon--purple">&#11088;</div>
+              <h3 class="feature-card__title">Favorites &amp; History</h3>
+              <p class="feature-card__text">Save countries and track your recent searches locally.</p>
+            </div>
           </article>
         </div>
       </section>
 
-      <section class="cta">
+      <!-- CTA Segment (Phase 12) -->
+      <section class="cta animate-fade-in stagger-5">
         <h2 class="cta__title">Ready to explore?</h2>
         <p class="cta__text">Start by searching for any country above, or browse a sample country profile.</p>
         <a href="/country/japan" class="btn btn--white">View Sample: Japan</a>

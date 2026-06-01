@@ -1,4 +1,5 @@
 const countryService = require('../services/countryService');
+const pexelsService = require('../services/pexelsService');
 
 async function postSearch(req, res, next) {
   try {
@@ -33,12 +34,15 @@ async function postSearch(req, res, next) {
 async function getCountryDetail(req, res, next) {
   try {
     const country = await countryService.getCountryByName(req.params.name);
+    // Fetch 12 landscape photos from Pexels with fallback search support
+    const images = await pexelsService.searchPhotos(country.name, 12, `${country.name} landscape`);
 
     res.render('country', {
       title: country.name,
       activePage: 'home',
       activeTab: 'overview',
       country,
+      images,
     });
   } catch (error) {
     next(error);

@@ -10,39 +10,64 @@
     <div class="container">
       <%- include('partials/country-nav') %>
 
-      <section class="country-header">
-        <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag">
-        <div class="country-header__info">
-          <h1><%= country.name %></h1>
-          <p class="country-header__meta"><%= country.officialName %></p>
-          <p class="country-header__meta"><%= country.region %> &middot; <%= country.subregion %></p>
-          <div class="country-header__actions">
+      <!-- Premium Banner Showcase (Phase 2) -->
+      <section class="country-banner-showcase animate-fade-in stagger-1">
+        <div class="country-banner__flag-container">
+          <img src="<%= images[0] ? images[0].url : country.flag %>" alt="Scenic landscape of <%= country.name %>" class="country-banner__flag">
+          <div class="country-banner__flag-overlay"></div>
+        </div>
+        <div class="country-banner__details">
+          <span class="country-banner__tag"><%= country.region %></span>
+          <h1 class="country-banner__title">
+            <img src="<%= country.flag %>" alt="" style="width: 44px; height: 30px; border-radius: 4px; display: inline-block; vertical-align: middle; margin-right: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border);">
+            <%= country.name %>
+          </h1>
+          <p class="country-banner__subname"><%= country.officialName %></p>
+          <div class="country-banner__meta-row">
+            <span><strong>Capital:</strong> <%= country.capital %></span>
+            <span>&middot;</span>
+            <span><strong>Subregion:</strong> <%= country.subregion %></span>
+          </div>
+          <div class="country-banner__actions">
             <%- include('partials/favorite-btn') %>
             <a href="/" class="btn btn--sm btn--outline">Back to Search</a>
           </div>
         </div>
       </section>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <p class="stat-card__label">Capital</p>
-          <p class="stat-card__value"><%= country.capital %></p>
+      <!-- Animated Stats Widgets (Phase 5) -->
+      <div class="stats-grid--animated animate-fade-in stagger-2">
+        <div class="stat-card--fancy">
+          <div class="stat-card__icon-wrap">🏛️</div>
+          <div class="stat-card__text-wrap">
+            <p class="stat-card__label--fancy">Capital</p>
+            <p class="stat-card__value--fancy"><%= country.capital %></p>
+          </div>
         </div>
-        <div class="stat-card">
-          <p class="stat-card__label">Population</p>
-          <p class="stat-card__value"><%= country.population %></p>
+        <div class="stat-card--fancy">
+          <div class="stat-card__icon-wrap">👥</div>
+          <div class="stat-card__text-wrap">
+            <p class="stat-card__label--fancy">Population</p>
+            <p class="stat-card__value--fancy data-counter" data-count-value="<%= country.population %>"><%= country.population %></p>
+          </div>
         </div>
-        <div class="stat-card">
-          <p class="stat-card__label">Region</p>
-          <p class="stat-card__value"><%= country.region %></p>
+        <div class="stat-card--fancy">
+          <div class="stat-card__icon-wrap">🌍</div>
+          <div class="stat-card__text-wrap">
+            <p class="stat-card__label--fancy">Region</p>
+            <p class="stat-card__value--fancy"><%= country.region %></p>
+          </div>
         </div>
-        <div class="stat-card">
-          <p class="stat-card__label">Subregion</p>
-          <p class="stat-card__value"><%= country.subregion %></p>
+        <div class="stat-card--fancy">
+          <div class="stat-card__icon-wrap">📍</div>
+          <div class="stat-card__text-wrap">
+            <p class="stat-card__label--fancy">Subregion</p>
+            <p class="stat-card__value--fancy"><%= country.subregion %></p>
+          </div>
         </div>
       </div>
 
-      <div class="info-section">
+      <div class="info-section animate-fade-in stagger-3">
         <h2 class="info-section__title">Additional Information</h2>
         <div class="info-list">
           <div class="info-list__item">
@@ -63,6 +88,25 @@
           </div>
         </div>
       </div>
+
+      <!-- Country Masonry Visual Showcase Gallery (Phase 2) -->
+      <% if (images && images.length > 0) { %>
+        <section class="gallery-section animate-fade-in stagger-4">
+          <h2 class="section-title">Visual Gallery</h2>
+          <p class="section-subtitle">Stunning sights, cities, and landmarks in <%= country.name %>.</p>
+          <div class="gallery-grid">
+            <% images.forEach(function(img) { %>
+              <div class="gallery-card">
+                <img class="gallery-card__img" src="<%= img.url %>" alt="<%= img.title %> in <%= country.name %>" loading="lazy">
+                <div class="gallery-card__info">
+                  <h4 class="gallery-card__title"><%= img.title %></h4>
+                  <p class="gallery-card__desc"><%= img.description %></p>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% } %>
     </div>
   </main>
 

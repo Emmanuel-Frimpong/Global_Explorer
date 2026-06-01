@@ -10,20 +10,21 @@
     <div class="container">
       <%- include('partials/country-nav') %>
 
-      <div class="page-header">
-        <div class="country-header country-header--compact">
-          <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag country-header__flag--sm">
-          <div class="country-header__info">
-            <h1>Universities in <%= country.name %></h1>
-            <p class="country-header__meta"><%= resultCount %> universit<%= resultCount === 1 ? 'y' : 'ies' %> found</p>
-            <div class="country-header__actions">
-              <%- include('partials/favorite-btn') %>
-            </div>
+      <!-- Premium Campus Hero Banner (Visual Pexels Upgrade) -->
+      <div class="campus-hero-banner animate-fade-in stagger-1">
+        <div class="campus-hero-banner__bg" style="background-image: url('<%= campusHeaderImage %>');"></div>
+        <div class="campus-hero-banner__overlay"></div>
+        <div class="campus-hero-banner__content">
+          <div class="campus-hero-banner__flag-container">
+            <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="campus-hero-banner__flag">
+            <%- include('partials/favorite-btn') %>
           </div>
+          <h1 class="campus-hero-banner__title">Universities in <%= country.name %></h1>
+          <p class="campus-hero-banner__meta">Explore <%= resultCount %> visual profiles of premier academic institutions in <%= country.name %></p>
         </div>
       </div>
 
-      <section class="search-section search-section--inline">
+      <section class="search-section search-section--inline animate-fade-in stagger-2">
         <form class="search-form" method="GET" action="/country/<%= encodeURIComponent(country.slug) %>/universities" id="universitySearchForm">
           <input
             type="text"
@@ -42,7 +43,7 @@
       </section>
 
       <% if (universities.length === 0) { %>
-        <div class="empty-state">
+        <div class="empty-state animate-fade-in stagger-3">
           <div class="empty-state__icon">&#127979;</div>
           <h2 class="empty-state__title">No universities found</h2>
           <p class="empty-state__text">
@@ -61,30 +62,39 @@
       <% } else { %>
         <div class="university-grid" id="universityGrid">
           <% universities.forEach(function(university) { %>
-            <article class="university-card" data-name="<%= university.name.toLowerCase() %>">
-              <div class="university-card__icon">&#127979;</div>
-              <div class="university-card__body">
-                <h2 class="university-card__name"><%= university.name %></h2>
-                <p class="university-card__country"><%= university.country %></p>
-                <% if (university.stateProvince) { %>
-                  <p class="university-card__state"><%= university.stateProvince %></p>
-                <% } %>
-                <% if (university.domain) { %>
-                  <p class="university-card__domain"><%= university.domain %></p>
-                <% } %>
+            <article class="university-card animate-fade-in" data-name="<%= university.name.toLowerCase() %>">
+              <div class="university-card__img-container">
+                <img class="university-card__img" src="<%= university.image %>" alt="<%= university.name %> Campus" loading="lazy">
               </div>
-              <% if (university.website) { %>
-                <a
-                  href="<%= university.website %>"
-                  class="btn btn--sm university-card__link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open Website
-                </a>
-              <% } else { %>
-                <span class="university-card__no-link">No website</span>
-              <% } %>
+              <div class="university-card__content">
+                <div class="university-card__icon-row">
+                  <div class="university-card__icon">&#127979;</div>
+                  <h2 class="university-card__name"><%= university.name %></h2>
+                </div>
+                <div class="university-card__body">
+                  <p class="university-card__country">📍 <%= university.country %></p>
+                  <% if (university.stateProvince) { %>
+                    <p class="university-card__state">🏛️ <%= university.stateProvince %></p>
+                  <% } %>
+                  <% if (university.domain) { %>
+                    <p class="university-card__domain">🌐 <%= university.domain %></p>
+                  <% } %>
+                </div>
+                <div class="university-card__footer">
+                  <% if (university.website) { %>
+                    <a
+                      href="<%= university.website %>"
+                      class="btn btn--sm university-card__link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open Website
+                    </a>
+                  <% } else { %>
+                    <span class="university-card__no-link">No website</span>
+                  <% } %>
+                </div>
+              </div>
             </article>
           <% }); %>
         </div>
