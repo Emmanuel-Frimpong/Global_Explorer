@@ -35,31 +35,39 @@
         </div>
       </section>
 
-      <!-- Animated Stats Widgets (Phase 5) -->
+      <!-- Animated Stats Widgets (Phase 5 - Professional Icons Upgrade) -->
       <div class="stats-grid--animated animate-fade-in stagger-2">
         <div class="stat-card--fancy">
-          <div class="stat-card__icon-wrap">🏛️</div>
+          <div class="stat-card__icon-wrap" aria-hidden="true">
+            <span class="fa-solid fa-landmark"></span>
+          </div>
           <div class="stat-card__text-wrap">
             <p class="stat-card__label--fancy">Capital</p>
             <p class="stat-card__value--fancy"><%= country.capital %></p>
           </div>
         </div>
         <div class="stat-card--fancy">
-          <div class="stat-card__icon-wrap">👥</div>
+          <div class="stat-card__icon-wrap" aria-hidden="true">
+            <span class="fa-solid fa-users"></span>
+          </div>
           <div class="stat-card__text-wrap">
             <p class="stat-card__label--fancy">Population</p>
             <p class="stat-card__value--fancy data-counter" data-count-value="<%= country.population %>"><%= country.population %></p>
           </div>
         </div>
         <div class="stat-card--fancy">
-          <div class="stat-card__icon-wrap">🌍</div>
+          <div class="stat-card__icon-wrap" aria-hidden="true">
+            <span class="fa-solid fa-earth-americas"></span>
+          </div>
           <div class="stat-card__text-wrap">
             <p class="stat-card__label--fancy">Region</p>
             <p class="stat-card__value--fancy"><%= country.region %></p>
           </div>
         </div>
         <div class="stat-card--fancy">
-          <div class="stat-card__icon-wrap">📍</div>
+          <div class="stat-card__icon-wrap" aria-hidden="true">
+            <span class="fa-solid fa-location-dot"></span>
+          </div>
           <div class="stat-card__text-wrap">
             <p class="stat-card__label--fancy">Subregion</p>
             <p class="stat-card__value--fancy"><%= country.subregion %></p>

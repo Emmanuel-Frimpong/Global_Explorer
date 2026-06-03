@@ -44,7 +44,9 @@
 
       <% if (universities.length === 0) { %>
         <div class="empty-state animate-fade-in stagger-3">
-          <div class="empty-state__icon">&#127979;</div>
+          <div class="empty-state__icon" aria-hidden="true">
+            <span class="fa-solid fa-graduation-cap"></span>
+          </div>
           <h2 class="empty-state__title">No universities found</h2>
           <p class="empty-state__text">
             <% if (searchQuery) { %>
@@ -68,16 +70,27 @@
               </div>
               <div class="university-card__content">
                 <div class="university-card__icon-row">
-                  <div class="university-card__icon">&#127979;</div>
+                  <div class="university-card__icon" aria-hidden="true">
+                    <span class="fa-solid fa-building-columns"></span>
+                  </div>
                   <h2 class="university-card__name"><%= university.name %></h2>
                 </div>
                 <div class="university-card__body">
-                  <p class="university-card__country">📍 <%= university.country %></p>
+                  <p class="university-card__country">
+                    <span class="info-icon fa-solid fa-location-dot" aria-hidden="true"></span>
+                    <%= university.country %>
+                  </p>
                   <% if (university.stateProvince) { %>
-                    <p class="university-card__state">🏛️ <%= university.stateProvince %></p>
+                    <p class="university-card__state">
+                      <span class="info-icon fa-solid fa-map-pin" aria-hidden="true"></span>
+                      <%= university.stateProvince %>
+                    </p>
                   <% } %>
                   <% if (university.domain) { %>
-                    <p class="university-card__domain">🌐 <%= university.domain %></p>
+                    <p class="university-card__domain">
+                      <span class="info-icon fa-solid fa-network-wired" aria-hidden="true"></span>
+                      <%= university.domain %>
+                    </p>
                   <% } %>
                 </div>
                 <div class="university-card__footer">
@@ -87,7 +100,9 @@
                       class="btn btn--sm university-card__link"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Open website for <%= university.name %>"
                     >
+                      <span class="fa-solid fa-link" aria-hidden="true" style="margin-right: 0.375rem;"></span>
                       Open Website
                     </a>
                   <% } else { %>

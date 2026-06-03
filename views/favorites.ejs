@@ -23,7 +23,9 @@
 
       <div id="favoritesContainer">
         <div class="empty-state glass-panel animate-fade-in stagger-1" id="favoritesEmpty">
-          <div class="empty-state__icon" style="color: var(--color-warning); background: rgba(245, 158, 11, 0.08);">⭐</div>
+          <div class="empty-state__icon" style="color: var(--color-warning); background: rgba(245, 158, 11, 0.08);" aria-hidden="true">
+            <span class="fa-solid fa-star"></span>
+          </div>
           <h2 class="empty-state__title">No favorites saved</h2>
           <p class="empty-state__text">Explore countries, tap the star icon, and keep your absolute favorite profiles right here for instant access.</p>
           <a href="/" class="btn btn--primary">Start Exploring</a>

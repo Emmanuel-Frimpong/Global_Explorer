@@ -1,137 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <%- include('partials/head') %>
 </head>
+
 <body>
   <%- include('partials/navbar') %>
 
-  <main class="page-content">
-    <div class="container">
-      <%- include('partials/country-nav') %>
+    <main class="page-content">
+      <div class="container">
+        <%- include('partials/country-nav') %>
 
-      <div class="page-header">
-        <div class="country-header country-header--compact">
-          <img src="<%= country.flag %>" alt="<%= country.flagAlt %>" class="country-header__flag country-header__flag--sm">
-          <div class="country-header__info">
-            <h1>Currency Converter</h1>
-            <p class="country-header__meta">Convert currencies for <%= country.name %> (<%= country.currency %>)</p>
-            <div class="country-header__actions">
-              <%- include('partials/favorite-btn') %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <% if (error) { %>
-        <div class="alert alert--error" role="alert"><%= error %></div>
-      <% } %>
-
-      <div class="converter-layout">
-        <section class="converter-card">
-          <h2 class="converter-card__title">Convert Currency</h2>
-
-          <form class="converter-form" method="POST" action="/country/<%= encodeURIComponent(country.slug) %>/currency" id="converterForm">
-            <div class="converter-form__group">
-              <label for="amount" class="converter-form__label">Amount</label>
-              <input
-                type="number"
-                id="amount"
-                name="amount"
-                class="converter-form__input"
-                value="<%= form.amount %>"
-                min="0.01"
-                step="0.01"
-                required
-                aria-label="Amount to convert"
-              >
-            </div>
-
-            <div class="converter-form__row">
-              <div class="converter-form__group">
-                <label for="base" class="converter-form__label">Base Currency</label>
-                <select id="base" name="base" class="converter-form__select" required aria-label="Base currency">
-                  <% currencies.forEach(function(code) { %>
-                    <option value="<%= code %>" <%= code === form.base ? 'selected' : '' %>><%= code %></option>
-                  <% }); %>
-                </select>
-              </div>
-
-              <button type="button" class="converter-form__swap" id="swapCurrencies" aria-label="Swap currencies">
-                &#8644;
-              </button>
-
-              <div class="converter-form__group">
-                <label for="target" class="converter-form__label">Target Currency</label>
-                <select id="target" name="target" class="converter-form__select" required aria-label="Target currency">
-                  <% currencies.forEach(function(code) { %>
-                    <option value="<%= code %>" <%= code === form.target ? 'selected' : '' %>><%= code %></option>
-                  <% }); %>
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" class="btn converter-form__submit">Convert</button>
-          </form>
-
-          <% if (conversion) { %>
-            <div class="conversion-result">
-              <p class="conversion-result__label">Converted Amount</p>
-              <p class="conversion-result__value"><%= conversion.formattedConverted %></p>
-              <div class="conversion-result__details">
-                <div class="conversion-result__detail">
-                  <span class="conversion-result__detail-label">From</span>
-                  <span><%= conversion.formattedAmount %></span>
+          <div class="page-header">
+            <div class="country-header country-header--compact">
+              <img src="<%= country.flag %>" alt="<%= country.flagAlt %>"
+                class="country-header__flag country-header__flag--sm">
+              <div class="country-header__info">
+                <h1>Currency Converter</h1>
+                <p class="country-header__meta">Convert currencies for <%= country.name %> (<%= country.currency %>)</p>
+                <div class="country-header__actions">
+                  <%- include('partials/favorite-btn') %>
                 </div>
-                <div class="conversion-result__detail">
-                  <span class="conversion-result__detail-label">Exchange Rate</span>
-                  <span>1 <%= conversion.base %> = <%= conversion.rate.toFixed(4) %> <%= conversion.target %></span>
-                </div>
-                <% if (conversion.lastUpdate) { %>
-                  <div class="conversion-result__detail">
-                    <span class="conversion-result__detail-label">Last Updated</span>
-                    <span><%= conversion.lastUpdate %></span>
-                  </div>
-                  <div class="conversion-result__detail">
-                    <span class="conversion-result__detail-label">Next Update</span>
-                    <span><%= conversion.nextUpdate %></span>
-                  </div>
-                <% } %>
               </div>
             </div>
-          <% } %>
-        </section>
+          </div>
 
-        <aside class="conversion-history">
-          <div class="conversion-history__header">
-            <h2 class="conversion-history__title">Conversion History</h2>
-            <button type="button" class="btn btn--danger btn--sm" id="clearConversionHistory" style="display: none;">
-              Clear
-            </button>
-          </div>
-          <div class="empty-state conversion-history__empty" id="conversionHistoryEmpty">
-            <p class="empty-state__text">Your recent conversions will appear here.</p>
-          </div>
-          <ul class="conversion-history__list" id="conversionHistoryList"></ul>
-        </aside>
+          <% if (error) { %>
+            <div class="alert alert--error" role="alert">
+              <%= error %>
+            </div>
+            <% } %>
+
+              <div class="converter-layout">
+                <section class="converter-card">
+                  <h2 class="converter-card__title">Convert Currency</h2>
+
+                  <form class="converter-form" method="POST"
+                    action="/country/<%= encodeURIComponent(country.slug) %>/currency" id="converterForm">
+                    <div class="converter-form__group">
+                      <label for="amount" class="converter-form__label">Amount</label>
+                      <input type="number" id="amount" name="amount" class="converter-form__input"
+                        value="<%= form.amount %>" min="0.01" step="0.01" required aria-label="Amount to convert">
+                    </div>
+
+                    <div class="converter-form__row">
+                      <div class="converter-form__group">
+                        <label for="base" class="converter-form__label">Base Currency</label>
+                        <select id="base" name="base" class="converter-form__select" required
+                          aria-label="Base currency">
+                          <% currencies.forEach(function(code) { %>
+                            <option value="<%= code %>" <%=code===form.base ? 'selected' : '' %>><%= code %>
+                            </option>
+                            <% }); %>
+                        </select>
+                      </div>
+
+                      <button type="button" class="converter-form__swap" id="swapCurrencies"
+                        aria-label="Swap currencies">
+                        &#8644;
+                      </button>
+
+                      <div class="converter-form__group">
+                        <label for="target" class="converter-form__label">Target Currency</label>
+                        <select id="target" name="target" class="converter-form__select" required
+                          aria-label="Target currency">
+                          <% currencies.forEach(function(code) { %>
+                            <option value="<%= code %>" <%=code===form.target ? 'selected' : '' %>><%= code %>
+                            </option>
+                            <% }); %>
+                        </select>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn converter-form__submit">Convert</button>
+                  </form>
+
+                  <% if (conversion) { %>
+                    <div class="conversion-result">
+                      <p class="conversion-result__label">Converted Amount</p>
+                      <p class="conversion-result__value">
+                        <%= conversion.formattedConverted %>
+                      </p>
+                      <div class="conversion-result__details">
+                        <div class="conversion-result__detail">
+                          <span class="conversion-result__detail-label">From</span>
+                          <span>
+                            <%= conversion.formattedAmount %>
+                          </span>
+                        </div>
+                        <div class="conversion-result__detail">
+                          <span class="conversion-result__detail-label">Exchange Rate</span>
+                          <span>1 <%= conversion.base %> = <%= conversion.rate.toFixed(4) %>
+                                <%= conversion.target %></span>
+                        </div>
+                        <% if (conversion.lastUpdate) { %>
+                          <div class="conversion-result__detail">
+                            <span class="conversion-result__detail-label">Last Updated</span>
+                            <span>
+                              <%= conversion.lastUpdate %>
+                            </span>
+                          </div>
+                          <div class="conversion-result__detail">
+                            <span class="conversion-result__detail-label">Next Update</span>
+                            <span>
+                              <%= conversion.nextUpdate %>
+                            </span>
+                          </div>
+                          <% } %>
+                      </div>
+                    </div>
+                    <% } %>
+                </section>
+
+                <aside class="conversion-history">
+                  <div class="conversion-history__header">
+                    <h2 class="conversion-history__title">Conversion History</h2>
+                    <button type="button" class="btn btn--danger btn--sm" id="clearConversionHistory"
+                      style="display: none;">
+                      Clear
+                    </button>
+                  </div>
+                  <div class="empty-state conversion-history__empty" id="conversionHistoryEmpty">
+                    <p class="empty-state__text">Your recent conversions will appear here.</p>
+                  </div>
+                  <ul class="conversion-history__list" id="conversionHistoryList"></ul>
+                </aside>
+              </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <%- include('partials/footer') %>
-  <script src="/js/main.js"></script>
-  <script src="/js/currency.js"></script>
-  <% if (conversion) { %>
-    <script>
-      window.__conversionResult = <%- JSON.stringify({
-        amount: conversion.amount,
-        base: conversion.base,
-        target: conversion.target,
-        rate: conversion.rate,
-        converted: conversion.converted,
-        formattedConverted: conversion.formattedConverted
-      }) %>;
-    </script>
-  <% } %>
+    <%- include('partials/footer') %>
+      <script src="/js/main.js"></script>
+      <script src="/js/currency.js"></script>
+      <% if (conversion) { %>
+        <script>
+          window.__conversionResult = <% - JSON.stringify({
+            amount: conversion.amount,
+            base: conversion.base,
+            target: conversion.target,
+            rate: conversion.rate,
+            converted: conversion.converted,
+            formattedConverted: conversion.formattedConverted
+          }) %>;
+        </script>
+        <% } %>
 </body>
+
 </html>

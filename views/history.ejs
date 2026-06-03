@@ -20,7 +20,9 @@
 
       <div id="historyContainer">
         <div class="empty-state glass-panel animate-fade-in stagger-1" id="historyEmpty">
-          <div class="empty-state__icon" style="color: var(--color-primary); background: rgba(37, 99, 235, 0.08);">🕒</div>
+          <div class="empty-state__icon" style="color: var(--color-primary); background: rgba(37, 99, 235, 0.08);" aria-hidden="true">
+            <span class="fa-solid fa-clock-rotate-left"></span>
+          </div>
           <h2 class="empty-state__title">No search history</h2>
           <p class="empty-state__text">Keep track of your journeys. Your most recently explored country profiles will compile here automatically.</p>
           <a href="/" class="btn">Explore Countries</a>

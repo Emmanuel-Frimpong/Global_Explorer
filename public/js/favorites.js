@@ -40,7 +40,7 @@
           ${
             country.flag
               ? `<img src="${escapeHtml(country.flag)}" alt="Flag of ${escapeHtml(country.name)}" class="favorite-card__flag" loading="lazy">`
-              : '<div class="favorite-card__flag favorite-card__flag--placeholder">&#127758;</div>'
+              : '<div class="favorite-card__flag favorite-card__flag--placeholder"><span class="fa-solid fa-earth-africa" aria-hidden="true"></span></div>'
           }
           <div class="favorite-card__body">
             <h2 class="favorite-card__name">${escapeHtml(country.name)}</h2>

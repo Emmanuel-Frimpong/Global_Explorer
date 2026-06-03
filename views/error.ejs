@@ -10,15 +10,15 @@
     <div class="container error-page">
       <section class="error-card">
         <% const errorIcons = {
-          validation: '⚠️',
-          network: '🌐',
-          not_found: '🔍',
-          api: '🔧',
-          server: '⚙️'
+          validation: 'fa-solid fa-triangle-exclamation',
+          network: 'fa-solid fa-wifi',
+          not_found: 'fa-solid fa-magnifying-glass-location',
+          api: 'fa-solid fa-server',
+          server: 'fa-solid fa-gears'
         }; %>
 
-        <div class="error-card__icon">
-          <%= errorIcons[errorType] || errorIcons.server %>
+        <div class="error-card__icon" aria-hidden="true">
+          <span class="<%- errorIcons[errorType] || errorIcons.server %>"></span>
         </div>
 
         <p class="error-card__code"><%= statusCode %></p>

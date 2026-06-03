@@ -92,8 +92,16 @@
     const icon = button.querySelector('.favorite-btn__icon');
     const text = button.querySelector('.favorite-btn__text');
 
-    if (icon) icon.textContent = active ? '\u2605' : '\u2606';
-    if (text) text.textContent = active ? 'Saved to Favorites' : 'Add to Favorites';
+    if (icon) {
+      if (active) {
+        icon.className = 'favorite-btn__icon fa-solid fa-star';
+      } else {
+        icon.className = 'favorite-btn__icon fa-regular fa-star';
+      }
+    }
+    if (text) {
+      text.textContent = active ? 'Saved to Favorites' : 'Add to Favorites';
+    }
   }
 
   function initButton(button) {

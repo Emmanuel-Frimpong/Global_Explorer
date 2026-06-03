@@ -61,7 +61,9 @@
 
         <% if (holidays.length === 0) { %>
           <div class="empty-state">
-            <div class="empty-state__icon">&#127881;</div>
+            <div class="empty-state__icon" aria-hidden="true">
+              <span class="fa-solid fa-calendar-xmark"></span>
+            </div>
             <h2 class="empty-state__title">No holidays found</h2>
             <p class="empty-state__text">No public holiday data is available for <%= country.name %> in <%= selectedYear %>.</p>
             <% if (selectedYear !== currentYear) { %>
