@@ -49,11 +49,7 @@
           </div>
           <h2 class="empty-state__title">No universities found</h2>
           <p class="empty-state__text">
-            <% if (searchQuery) { %>
-              No universities matching "<%= searchQuery %>" in <%= country.name %>. Try a different search term.
-            <% } else { %>
-              No university data is available for <%= country.name %> at this time.
-            <% } %>
+            Search for a country to discover universities.
           </p>
           <% if (searchQuery) { %>
             <a href="/country/<%= encodeURIComponent(country.slug) %>/universities" class="btn">View All Universities</a>
